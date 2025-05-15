@@ -12,6 +12,12 @@
 
 #include "../includes/philo.h"
 
+static void	check_error(char *str)
+{
+	printf(RED"%s\n"RST, str);
+	exit(1);
+}
+
 static void	check_len(char *str)
 {
 	int		i;
@@ -26,17 +32,13 @@ static void	check_len(char *str)
 	if (str[i] == '-' || str[i] == '+')
 	{
 		if (str[i] == '-')
-			neg = true;
+			check_error("Invalid arg: Use only positive integers!");
 		i++;
 	}
 	while (is_digit(str[j]))
 		j++;
 	if ((j - i > 20 && neg == true) || (j - i > 19 && neg == false))
-	{
-		printf("j - i = %d && str = %s\n", (j - i), str);
-		printf(RED"Invalid arg: Use only positive integers!\n"RST);
-		exit(EXIT_FAILURE);
-	}
+		check_error("Invalid arg: Use only positive integers!");
 	return ;
 }
 
@@ -48,16 +50,17 @@ static void	check_chars(char *str)
 	while (is_space(str[i]))
 		i++;
 	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			check_error("Invalid arg: Use only positive integers!");
 		i++;
+	}
 	while (is_digit(str[i]))
 		i++;
 	while (is_space(str[i]))
 		i++;
 	if (str[i])
-	{
-		printf(RED"Invalid arg: Use only positive integers!\n"RST);
-		exit(EXIT_FAILURE);
-	}
+		check_error("Invalid arg: Use only positive integers!");
 	return ;
 }
 
