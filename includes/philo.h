@@ -23,7 +23,7 @@
 
 # define RST  "\033[0m"
 # define RED    "\033[1;31m"
-# define GREEN  "\033[1;32m"
+# define G  "\033[1;32m"
 
 enum e_forks
 {
