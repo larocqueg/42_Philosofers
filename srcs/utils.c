@@ -72,8 +72,8 @@ void	free_table(t_table *table)
 	pthread_mutex_destroy(&table->lock);
 	pthread_mutex_destroy(&table->log);
 	pthread_mutex_destroy(&table->ended_lock);
-	if (table->table)
-		free(table->table);
+	if (table->threads)
+		free(table->threads);
 	if (table->philos)
 		free(table->philos);
 	if (table->forks)

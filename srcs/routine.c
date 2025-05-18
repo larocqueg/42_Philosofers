@@ -16,15 +16,15 @@ void	logs(t_philo *p, int status)
 {
 	pthread_mutex_lock(&p->table->log);
 	if (status == DEATH)
-		printf(RED"%lu %lu died\n"RST, get_time() - p->table->start, p->id);
+		printf(RED"%lu %lu died\n"RT, get_time() - p->table->start, p->id);
 	else if (status == EATING)
-		printf(G"%lu %lu is eating\n"RST, get_time() - p->table->start, p->id);
+		printf(G"%lu %lu is eating\n"RT, get_time() - p->table->start, p->id);
 	else if (status == SLEEPING)
-		printf(G"%lu %lu is sleeping\n"RST, get_time() - p->table->start, p->id);
+		printf(G"%lu %lu is sleeping\n"RT, get_time() - p->table->start, p->id);
 	else if (status == THINKING)
-		printf(G"%lu %lu is thinking\n"RST, get_time() - p->table->start, p->id);
+		printf(G"%lu %lu is thinking\n"RT, get_time() - p->table->start, p->id);
 	else if (status == FORK)
-		printf(G"%lu %lu has taken a fork\n"RST,
+		printf(G"%lu %lu has taken a fork\n"RT,
 			get_time() - p->table->start, p->id);
 	pthread_mutex_unlock(&p->table->log);
 }

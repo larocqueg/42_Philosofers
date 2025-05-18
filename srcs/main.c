@@ -45,15 +45,16 @@ static int	meeting(t_table *table)
 	n = 0;
 	while (n < table->philos_count)
 	{
-		if (pthread_create(&table->table[n], NULL, &routine, &table->philos[n]))
-			return (1);
+		if (pthread_create(&table->threads[n], NULL,
+				&routine, &table->philos[n]))
+			return (pthread_mutex_unlock(&table->lock), 1);
 		n++;
 	}
 	pthread_mutex_unlock(&table->lock);
 	n = 0;
 	while (n < table->philos_count)
 	{
-		if (pthread_join(table->table[n], NULL))
+		if (pthread_join(table->threads[n], NULL))
 			return (1);
 		n++;
 	}

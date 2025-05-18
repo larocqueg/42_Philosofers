@@ -21,7 +21,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 
-# define RST  "\033[0m"
+# define RT  "\033[0m"
 # define RED    "\033[1;31m"
 # define G  "\033[1;32m"
 
@@ -57,7 +57,7 @@ typedef struct s_philo
 
 typedef struct s_table
 {
-	pthread_t		*table;
+	pthread_t		*threads;
 	t_philo			*philos;
 	long			philos_count;
 	long			die_time;

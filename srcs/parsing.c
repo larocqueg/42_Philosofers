@@ -14,7 +14,7 @@
 
 static void	check_error(char *str)
 {
-	printf(RED"%s\n"RST, str);
+	printf(RED"%s\n"RT, str);
 	exit(1);
 }
 

@@ -64,9 +64,9 @@ static t_table	*init_threads(t_table *table)
 
 	table->ended = false;
 	table->philos_full = 0;
-	table->table = malloc(table->philos_count * sizeof(pthread_t));
+	table->threads = malloc(table->philos_count * sizeof(pthread_t));
 	table->forks = malloc(table->philos_count * sizeof(pthread_mutex_t));
-	if (!table->table || !table->forks)
+	if (!table->threads || !table->forks)
 		return (NULL);
 	pthread_mutex_init(&table->lock, NULL);
 	pthread_mutex_init(&table->log, NULL);
