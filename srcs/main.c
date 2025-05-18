@@ -12,7 +12,29 @@
 
 #include "../includes/philo.h"
 
-static int	reunion(t_table *table)
+static int	meeting(t_table *table);
+
+int	main(int ac, char **av)
+{
+	t_table		*table;
+
+	if ((ac != 5 && ac != 6))
+	{
+		printf("Error: Invalid arguments\n");
+		return (0);
+	}
+	parsing(av, ac);
+	table = init_table(ac, av);
+	if (!table)
+	{
+		free_table(table);
+		return (1);
+	}
+	meeting(table);
+	free_table(table);
+}
+
+static int	meeting(t_table *table)
 {
 	long	n;
 
@@ -36,24 +58,4 @@ static int	reunion(t_table *table)
 		n++;
 	}
 	return (0);
-}
-
-int	main(int ac, char **av)
-{
-	t_table		*table;
-
-	if ((ac != 5 && ac != 6))
-	{
-		printf("Error: Invalid arguments\n");
-		return (0);
-	}
-	parsing(av, ac);
-	table = init_table(ac, av);
-	if (!table)
-	{
-		free_table(table);
-		return (1);
-	}
-	reunion(table);
-	free_table(table);
 }
