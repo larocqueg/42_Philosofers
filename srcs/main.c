@@ -12,8 +12,6 @@
 
 #include "../includes/philo.h"
 
-static int	meeting(t_table *table);
-
 int	main(int ac, char **av)
 {
 	t_table		*table;
@@ -32,31 +30,4 @@ int	main(int ac, char **av)
 	}
 	meeting(table);
 	free_table(table);
-}
-
-static int	meeting(t_table *table)
-{
-	long	n;
-
-	table->start = get_time();
-	if (!table->start)
-		return (1);
-	pthread_mutex_lock(&table->lock);
-	n = 0;
-	while (n < table->philos_count)
-	{
-		if (pthread_create(&table->threads[n], NULL,
-				&routine, &table->philos[n]))
-			return (pthread_mutex_unlock(&table->lock), 1);
-		n++;
-	}
-	pthread_mutex_unlock(&table->lock);
-	n = 0;
-	while (n < table->philos_count)
-	{
-		if (pthread_join(table->threads[n], NULL))
-			return (1);
-		n++;
-	}
-	return (0);
 }

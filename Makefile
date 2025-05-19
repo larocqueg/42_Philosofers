@@ -26,6 +26,7 @@ SRC= $(SRCS_DIR)/main.c \
 	 $(SRCS_DIR)/init.c \
 	 $(SRCS_DIR)/routine.c \
 	 $(SRCS_DIR)/utils.c \
+	 $(SRCS_DIR)/meeting.c \
 
 OBJS = $(SRC:.c=.o)
 

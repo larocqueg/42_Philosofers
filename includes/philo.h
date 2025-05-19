@@ -102,4 +102,7 @@ void		free_table(t_table *table);
 //init.c
 t_table		*init_table(int ac, char **av);
 
+//meeting.c
+int			meeting(t_table *table);
+
 #endif
