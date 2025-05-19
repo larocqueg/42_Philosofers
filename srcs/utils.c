@@ -66,6 +66,9 @@ void	free_table(t_table *table)
 	i = -1;
 	while (++i < table->philos_count)
 	{
+		if (i + 1 == table->philos_count
+			&& table->philos_full >= table->philos_count)
+			printf(Y"All philos are full!\n"RT);
 		pthread_mutex_destroy(&table->forks[i]);
 		pthread_mutex_destroy(&table->philos[i].lock);
 	}

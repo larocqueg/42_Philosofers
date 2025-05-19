@@ -24,6 +24,7 @@
 # define RT  "\033[0m"
 # define RED    "\033[1;31m"
 # define G  "\033[1;32m"
+# define Y  "\033[1;33m"
 
 enum e_forks
 {
