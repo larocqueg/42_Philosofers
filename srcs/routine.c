@@ -16,7 +16,7 @@ void	logs(t_philo *p, int status)
 {
 	pthread_mutex_lock(&p->table->log);
 	if (status == DEATH && !p->table->ended)
-		printf(RED"%lu %lu died\n"RT, get_time() - p->table->start, p->id);
+		printf(R"%lu %lu died\n"RT, get_time() - p->table->start, p->id);
 	else if (status == EATING && !p->table->ended)
 		printf(G"%lu %lu is eating\n"RT, get_time() - p->table->start, p->id);
 	else if (status == SLEEPING && !p->table->ended)
