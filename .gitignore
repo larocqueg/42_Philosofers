@@ -1,4 +1,4 @@
 *.o
 *.a
-philo
+philo/philo
 LazyPhilosophersTester
