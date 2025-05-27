@@ -24,11 +24,19 @@ void	sleeping(t_philo *philo)
 
 void	thinking(t_philo *philo)
 {
+	long	time_left;
+
 	if (!is_dead(philo) && philo->status != THINKING)
 	{
 		philo->status = THINKING;
 		logs(philo, philo->status);
-		wait_time(philo, 150);
+		pthread_mutex_lock(&philo->lock);
+		time_left = philo->die_time - get_time();
+		pthread_mutex_unlock(&philo->lock);
+		if (time_left > philo->table->eat_time)
+			wait_time(philo, philo->table->eat_time / 2);
+		else
+			wait_time(philo, 100);
 	}
 }
 
