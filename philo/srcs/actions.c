@@ -36,7 +36,7 @@ void	thinking(t_philo *philo)
 		if (time_left > philo->table->eat_time)
 			wait_time(philo, philo->table->eat_time / 2);
 		else
-			wait_time(philo, 100);
+			wait_time(philo, 10);
 	}
 }
 
