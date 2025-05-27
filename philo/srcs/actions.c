@@ -35,8 +35,10 @@ void	thinking(t_philo *philo)
 		pthread_mutex_unlock(&philo->lock);
 		if (time_left > philo->table->eat_time)
 			wait_time(philo, philo->table->eat_time / 2);
+		else if (time_left > 100)
+			wait_time(philo, 100);
 		else
-			wait_time(philo, 10);
+			wait_time(philo, 1);
 	}
 }
 
