@@ -13,7 +13,7 @@
 NAME = philo
 
 CC = cc
-FLAGS = -Wall -Wextra -Werror -pthread
+FLAGS = -Wall -Wextra -Werror -pthread -g
 
 SRCS_DIR = ./srcs
 INCLUDES = ./includes/

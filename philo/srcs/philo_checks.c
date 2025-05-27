@@ -29,12 +29,16 @@ bool	is_dead(t_philo *philo)
 	dead = false;
 	pthread_mutex_lock(&philo->lock);
 	pthread_mutex_lock(&philo->table->ended_lock);
+	pthread_mutex_lock(&philo->table->log);
 	if (get_time() >= philo->die_time || philo->table->ended)
 	{
+		pthread_mutex_unlock(&philo->table->log);
 		if (!philo->table->ended)
 			logs(philo, DEATH);
 		philo->table->ended = true;
 	}
+	else
+		pthread_mutex_unlock(&philo->table->log);
 	pthread_mutex_lock(&philo->table->lock);
 	is_full(philo);
 	if (philo->table->philos_full == philo->table->philos_count)
