@@ -28,7 +28,7 @@ void	thinking(t_philo *philo)
 	{
 		philo->status = THINKING;
 		logs(philo, philo->status);
-		wait_time(philo, 5);
+		wait_time(philo, 150);
 	}
 }
 

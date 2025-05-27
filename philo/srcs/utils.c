@@ -14,10 +14,11 @@
 
 void	wait_time(t_philo *philo, long time)
 {
-	if ((get_time() + time) >= philo->die_time)
-		usleep((philo->die_time - get_time()) * 1000);
-	else
-		usleep(time * 1000);
+	long	start;
+
+	start = get_time();
+	while (!is_dead(philo) && (get_time() - start) < time)
+		usleep(100);
 }
 
 long	get_time(void)
