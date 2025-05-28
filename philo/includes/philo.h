@@ -81,7 +81,13 @@ void	parsing(char **av, int ac);
 
 //chars.c
 int		is_space(char c);
-int		is_space(char c);
+int		is_digit(char c);
 int		is_zero(char c);
+
+//exit.c
+void	ft_exit(int value, char *str);
+
+# define ARG_ERR "Error: Missing command line argument!\n"
+# define INVALID "Error: Only positive integers are allowed!\n"
 
 #endif

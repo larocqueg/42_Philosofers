@@ -19,7 +19,7 @@ int	is_space(char c)
 
 int	is_digit(char c)
 {
-	if (c >= '1' && c <= '9')
+	if (c >= '0' && c <= '9')
 		return (1);
 	return (0);
 }

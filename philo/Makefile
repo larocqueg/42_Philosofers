@@ -21,6 +21,7 @@ INCLUDES = ./includes/
 SRC= $(SRCS_DIR)/main.c \
 	 $(SRCS_DIR)/chars.c \
 	 $(SRCS_DIR)/parsing.c \
+	 $(SRCS_DIR)/exit.c \
 
 OBJS = $(SRC:.c=.o)
 

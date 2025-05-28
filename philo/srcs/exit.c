@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-la-r <gde-la-r@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/28 23:04:49 by gde-la-r          #+#    #+#             */
-/*   Updated: 2025/05/28 23:24:46 by gde-la-r         ###   ########.fr       */
+/*   Created: 2025/05/29 00:20:35 by gde-la-r          #+#    #+#             */
+/*   Updated: 2025/05/29 00:21:34 by gde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int	main(int ac, char **av)
+void	ft_exit(int value, char *str)
 {
-	t_table	*table;
-
-	if (ac != 5 && ac != 6)
-		ft_exit(1, ARG_ERR);
-	parsing(av, ac);
-	//table = init_table(av, ac);
-	//if (!table)
-	//{
-	//	ft_free_table(table);
-	//	ft_exit(1, TABLE_ERR);
-	//}
-	//meeting(table);
-	//free_table(table);
-	return (0);
+	if (str || *str)
+		printf("%s%s%s", R, str, RT);
+	exit(value);
 }
