@@ -98,11 +98,15 @@ void	check_mutex(t_table *table);
 //exit.c
 void	ft_exit(int value, char *str);
 
-# define ARG_ERR     "Error: Usage: ./philo n1 n2 n3 n4 n5(optional)\n"
-# define INVALID     "Error: Only positive integers are allowed!\n"
-# define RESOURCES   "Error: Not enough resources!\n"
-# define ENOMEM_ERR  "Error: Not enough resouces to initialize the mutex!\n"
-# define EINVAL_ERR  "Error: Invalid value was passed for the mutex!\n"
-# define MUTEX_ERR   "Error: Mutex init failed with error: "
+//free.c
+void	free_before_philos(t_table *table, char *str);
+
+# define ARG_ERR      "Error: Usage: ./philo n1 n2 n3 n4 n5(optional)\n"
+# define INVALID      "Error: Only positive integers are allowed!\n"
+# define RESOURCES    "Error: Not enough resources!\n"
+# define ENOMEM_ERR   "Error: Not enough resouces to initialize the mutex!\n"
+# define EINVAL_ERR   "Error: Invalid value was passed for the mutex!\n"
+# define MUTEX_ERR    "Error: Mutex init failed with error: "
+# define FORK_MTX_ERR "Error: Something went wrong while creating a mutex!\n"
 
 #endif

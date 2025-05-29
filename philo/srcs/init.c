@@ -59,3 +59,28 @@ void	init_table(t_table **table, char **av, int ac)
 	}
 	check_mutex(*table);
 }
+
+void	init_forks(t_table *table)
+{
+	int	i;
+	int	j;
+
+	table->forks = (t_fork *)malloc(sizeof(t_fork) * table->philo_count);
+	if (!table->forks)
+		free_before_philos(table, RESOURCES);
+	i = 0;
+	while (i < table->philo_count)
+	{
+		if (!ft_init_mutex(&table->forks[i].fork))
+		{
+			j = 0;
+			while (j < i)
+			{
+				pthread_mutex_destroy(&table->forks[j++].fork);
+			}
+			free_before_philos(table, FORK_MTX_ERR);
+		}
+		table->forks[i].fork_id = i;
+		i++;
+	}
+}

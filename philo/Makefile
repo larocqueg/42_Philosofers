@@ -24,6 +24,7 @@ SRC= $(SRCS_DIR)/main.c \
 	 $(SRCS_DIR)/exit.c \
 	 $(SRCS_DIR)/init.c \
 	 $(SRCS_DIR)/utils.c \
+	 $(SRCS_DIR)/free.c \
 
 OBJS = $(SRC:.c=.o)
 
