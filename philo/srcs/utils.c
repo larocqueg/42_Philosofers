@@ -29,15 +29,15 @@ bool	check_table(t_table *table)
 
 void	check_mutex(t_table *table)
 {
-	if (!ft_init_mutex(&(*table)->table_mtx))
+	if (!ft_init_mutex(&table->table_mtx))
 	{
-		free(*table);
+		free(table);
 		exit(1);
 	}
-	if (!ft_init_mutex(&(*table)->write_mtx))
+	if (!ft_init_mutex(&table->write_mtx))
 	{
-		pthread_mutex_destroy(&(*table)->table_mtx);
-		free(*table);
+		pthread_mutex_destroy(&table->table_mtx);
+		free(table);
 		exit (1);
 	}
 }

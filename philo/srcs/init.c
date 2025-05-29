@@ -57,5 +57,5 @@ void	init_table(t_table **table, char **av, int ac)
 		free(*table);
 		exit(1);
 	}
-	check_mutex(&table);
+	check_mutex(*table);
 }

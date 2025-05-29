@@ -88,6 +88,7 @@ int		is_zero(char c);
 
 //init.c
 void	init_table(t_table **table, char **av, int ac);
+int		ft_init_mutex(t_mtx *mtx);
 
 //utils.c
 long	ft_atol(char *str);
