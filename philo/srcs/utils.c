@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-la-r <gde-la-r@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/28 23:04:49 by gde-la-r          #+#    #+#             */
-/*   Updated: 2025/05/28 23:24:46 by gde-la-r         ###   ########.fr       */
+/*   Created: 2025/05/29 12:22:37 by gde-la-r          #+#    #+#             */
+/*   Updated: 2025/05/29 12:59:15 by gde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int	main(int ac, char **av)
+long	ft_atol(char *str)
 {
-	t_table	*table;
+	long	n;
 
-	if (ac != 5 && ac != 6)
-		ft_exit(1, ARG_ERR);
-	parsing(av, ac);
-	init_table(table, av, ac);
-	meeting(table);
-	free_table(table);
-	return (0);
+	while (is_space(*str))
+		str++;
+	if (*str == '-')
+		ft_exit(1, INVALID);
+	else if (*str == '+')
+		str++;
+	n = 0;
+	while (is_digit(*str))
+		n = n * 10 + (*(str++) - '0');
+	return (n);
 }

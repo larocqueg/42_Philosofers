@@ -84,10 +84,17 @@ int		is_space(char c);
 int		is_digit(char c);
 int		is_zero(char c);
 
+//init.c
+void	init_table(t_table *table, char **av, int ac);
+
+//utils.c
+long	ft_atol(char *str);
+
 //exit.c
 void	ft_exit(int value, char *str);
 
-# define ARG_ERR "Error: Missing command line argument!\n"
-# define INVALID "Error: Only positive integers are allowed!\n"
+# define ARG_ERR     "Error: Missing command line argument!\n"
+# define INVALID     "Error: Only positive integers are allowed!\n"
+# define MALLOC_FAIL "Error: Not enough resources!\n"
 
 #endif
