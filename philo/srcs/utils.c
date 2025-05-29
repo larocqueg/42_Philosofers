@@ -58,6 +58,39 @@ long	ft_atol(char *str)
 	return (n);
 }
 
+int	init_threads(pthread_t *thread, t_philo *philo)
+{
+	int	status;
+
+	status = pthread_create(thread, NULL, routine, philo);
+	if (status == EINVAL)
+	{
+		printf("%s%s%s", R, EINVAL_ERR, RT);
+		return (0);
+	}
+	else if (status == EAGAIN)
+	{
+		printf("%s%s%s", R, ENOMEM_ERR, RT);
+		return (0);
+	}
+	else if (status == EPERM)
+	{
+		printf("%s%s%s", R, EPERM_ERR, RT);
+		return (0);
+	}
+	return (1);
+}
+
 void	get_forks(t_table *table, t_philo *philo, t_fork *fork)
 {
+	if ((philo->id + 1) % 2 == 0)
+	{
+		philo->first_fork = &fork[philo->id];
+		philo->second_fork = &fork[(philo->id + 1) % table->philo_count];
+	}
+	else
+	{
+		philo->second_fork = &fork[philo->id];
+		philo->first_fork = &fork[(philo->id + 1) % table->philo_count];
+	}
 }

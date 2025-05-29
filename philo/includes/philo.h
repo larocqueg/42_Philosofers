@@ -62,7 +62,7 @@ typedef struct s_philo
 
 typedef struct s_table
 {
-	bool			philo_started;
+	int				philo_started;
 	bool			start_sim;
 	bool			end_sim;
 	long			philo_count;
@@ -94,6 +94,12 @@ int		ft_init_mutex(t_mtx *mtx);
 long	ft_atol(char *str);
 bool	check_table(t_table *table);
 void	check_mutex(t_table *table);
+int		init_threads(pthread_t *thread, t_philo *philo);
+void	get_forks(t_table *table, t_philo *philo, t_fork *fork);
+
+//simulation.c
+int		simulation_started(t_mtx *mtx, int *i);
+void	*routine(void *arg);
 
 //exit.c
 void	ft_exit(int value, char *str);
@@ -105,10 +111,12 @@ void	free_in_philos(t_table *table, char *str);
 # define ARG_ERR      "Error: Usage: ./philo n1 n2 n3 n4 n5(optional)\n"
 # define INVALID      "Error: Only positive integers are allowed!\n"
 # define RESOURCES    "Error: Not enough resources!\n"
-# define ENOMEM_ERR   "Error: Not enough resouces to initialize the mutex!\n"
-# define EINVAL_ERR   "Error: Invalid value was passed for the mutex!\n"
+# define ENOMEM_ERR   "Error: Not enough resouces to initialize the mtx!\n"
+# define EINVAL_ERR   "Error: Invalid value was passed for the mtx!\n"
 # define MUTEX_ERR    "Error: Mutex init failed with error: "
-# define FORK_MTX_ERR "Error: Something went wrong while creating fork mutex!\n"
-# define PHILO_MTX "Error: Something went wrong while creating philo mutex!\n"
+# define FORK_MTX_ERR "Error: Something went wrong while creating fork mtx!\n"
+# define PHILO_MTX    "Error: Something went wrong while creating philo mtx!\n"
+# define EPERM_ERR    "Error: Insufficient permissions to create the thread!\n"
+# define THREAD_ERR   "Error: Not enough resources to create thread: "
 
 #endif

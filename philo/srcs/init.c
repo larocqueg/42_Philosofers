@@ -58,20 +58,31 @@ static void	init_forks(t_table *table)
 	}
 }
 
-static void	init_philos(t_table *table)
+static void	create_threads(t_table *table)
 {
 	int	i;
-	int	j;
 
+	i = 0;
+	while (i < table->philo_count)
+	{
+		if (!init_threads(&table->philos[i].philo_thread, &table->philos[i]))
+			printf("%s%s%d\n%s", R, THREAD_ERR, i, RT);
+		i++;
+	}
+	while (simulation_started(&table->table_mtx, &table->philo_started)
+		!= table->philo_count)
+		usleep(500);
+}
+
+static void	init_philos(t_table *table, int i, int j)
+{
 	table->philos = (t_philo *)malloc(sizeof(t_philo) * table->philo_count);
 	if (!table->philos)
 		free_before_philos(table, RESOURCES);
-	i = 0;
 	while (i < table->philo_count)
 	{
 		if (!ft_init_mutex(&table->philos[i].philo_mtx))
 		{
-			j = 0;
 			while (j < i)
 			{
 				pthread_mutex_destroy(&table->philos[j++].philo_mtx);
@@ -83,8 +94,9 @@ static void	init_philos(t_table *table)
 		table->philos[i].last_meal = 0;
 		table->philos[i].full = false;
 		table->philos[i].meals_count = 0;
-		get_forks(table, &table_philos[i++], table->forks);
+		get_forks(table, &table->philos[i++], table->forks);
 	}
+	create_threads(table);
 }
 
 void	init_table(t_table **table, char **av, int ac)
@@ -113,5 +125,5 @@ void	init_table(t_table **table, char **av, int ac)
 	}
 	check_mutex(*table);
 	init_forks(*table);
-	init_philos(*table);
+	init_philos(*table, 0, 0);
 }
