@@ -57,3 +57,7 @@ long	ft_atol(char *str)
 		n = n * 10 + (*(str++) - '0');
 	return (n);
 }
+
+void	get_forks(t_table *table, t_philo *philo, t_fork *fork)
+{
+}

@@ -83,7 +83,7 @@ static void	init_philos(t_table *table)
 		table->philos[i].last_meal = 0;
 		table->philos[i].full = false;
 		table->philos[i].meals_count = 0;
-		//get_forks(table, &table_philos[i++], table->forks);
+		get_forks(table, &table_philos[i++], table->forks);
 	}
 }
 
