@@ -14,7 +14,7 @@
 
 void	ft_exit(int value, char *str)
 {
-	if (str || *str)
+	if (str && *str)
 		printf("%s%s%s", R, str, RT);
 	exit(value);
 }

@@ -20,6 +20,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdbool.h>
+# include <limits.h>
 
 # define RT  "\033[0m"
 # define R    "\033[1;31m"
@@ -85,16 +86,17 @@ int		is_digit(char c);
 int		is_zero(char c);
 
 //init.c
-void	init_table(t_table *table, char **av, int ac);
+void	init_table(t_table **table, char **av, int ac);
 
 //utils.c
 long	ft_atol(char *str);
+bool	check_table(t_table *table);
 
 //exit.c
 void	ft_exit(int value, char *str);
 
 # define ARG_ERR     "Error: Missing command line argument!\n"
 # define INVALID     "Error: Only positive integers are allowed!\n"
-# define MALLOC_FAIL "Error: Not enough resources!\n"
+# define RESOURCES "Error: Not enough resources!\n"
 
 #endif
