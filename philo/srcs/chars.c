@@ -14,7 +14,7 @@
 
 int	is_space(char c)
 {
-	if (c == ' ' || c == '\t')
+	if (c == ' ' || (c >= '\t' && c <= '\r'))
 		return (1);
 	return (0);
 }

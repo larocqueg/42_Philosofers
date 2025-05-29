@@ -6,7 +6,7 @@
 /*   By: gde-la-r <gde-la-r@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 12:08:47 by gde-la-r          #+#    #+#             */
-/*   Updated: 2025/05/29 13:24:00 by gde-la-r         ###   ########.fr       */
+/*   Updated: 2025/05/29 15:42:52 by gde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ void	init_table(t_table **table, char **av, int ac)
 	if (ac == 6)
 		(*table)->meals = ft_atol(av[i]);
 	else
-		(*table)->meals = -1;
+		(*table)->meals = 0;
 	(*table)->start_sim = 0;
 	(*table)->philos = NULL;
-	(*table)->end_sim = 0;
 	(*table)->philo_started = 0;
-	if (!check_table(*table) || !ft_init_mutex(&(*table)->write_mtx))
+	if (!check_table(*table))
 	{
 		free(*table);
-		exit (1);
+		exit(1);
 	}
+	check_mutex(&table);
 }

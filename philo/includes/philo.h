@@ -92,6 +92,7 @@ void	init_table(t_table **table, char **av, int ac);
 //utils.c
 long	ft_atol(char *str);
 bool	check_table(t_table *table);
+void	check_mutex(t_table *table);
 
 //exit.c
 void	ft_exit(int value, char *str);

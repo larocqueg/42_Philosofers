@@ -22,9 +22,24 @@ bool	check_table(t_table *table)
 		return (printf("%s%s%s", R, INVALID, RT), 0);
 	if (table->time_to_sleep < 1 || table->time_to_sleep > INT_MAX)
 		return (printf("%s%s%s", R, INVALID, RT), 0);
-	if (table->meals < 1 || table->meals > INT_MAX)
+	if (table->meals < 0 || table->meals > INT_MAX)
 		return (printf("%s%s%s", R, INVALID, RT), 0);
 	return (1);
+}
+
+void	check_mutex(t_table *table)
+{
+	if (!ft_init_mutex(&(*table)->table_mtx))
+	{
+		free(*table);
+		exit(1);
+	}
+	if (!ft_init_mutex(&(*table)->write_mtx))
+	{
+		pthread_mutex_destroy(&(*table)->table_mtx);
+		free(*table);
+		exit (1);
+	}
 }
 
 long	ft_atol(char *str)
