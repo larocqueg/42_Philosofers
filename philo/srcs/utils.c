@@ -15,15 +15,15 @@
 bool	check_table(t_table *table)
 {
 	if (table->philo_count < 1 || table->philo_count > INT_MAX)
-		return (0);
+		return (printf("%s%s%s", R, INVALID, RT), 0);
 	if (table->time_to_die < 1 || table->time_to_die > INT_MAX)
-		return (0);
+		return (printf("%s%s%s", R, INVALID, RT), 0);
 	if (table->time_to_eat < 1 || table->time_to_eat > INT_MAX)
-		return (0);
+		return (printf("%s%s%s", R, INVALID, RT), 0);
 	if (table->time_to_sleep < 1 || table->time_to_sleep > INT_MAX)
-		return (0);
+		return (printf("%s%s%s", R, INVALID, RT), 0);
 	if (table->meals < 1 || table->meals > INT_MAX)
-		return (0);
+		return (printf("%s%s%s", R, INVALID, RT), 0);
 	return (1);
 }
 

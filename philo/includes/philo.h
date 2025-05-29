@@ -21,6 +21,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <limits.h>
+# include <errno.h>
 
 # define RT  "\033[0m"
 # define R    "\033[1;31m"
@@ -62,8 +63,8 @@ typedef struct s_philo
 typedef struct s_table
 {
 	bool			philo_started;
-	bool			start_simulation;
-	bool			end_simulation;
+	bool			start_sim;
+	bool			end_sim;
 	long			philo_count;
 	long			start_time;
 	long			time_to_die;
@@ -95,8 +96,10 @@ bool	check_table(t_table *table);
 //exit.c
 void	ft_exit(int value, char *str);
 
-# define ARG_ERR     "Error: Missing command line argument!\n"
+# define ARG_ERR     "Error: Usage: ./philo n1 n2 n3 n4 n5(optional)\n"
 # define INVALID     "Error: Only positive integers are allowed!\n"
-# define RESOURCES "Error: Not enough resources!\n"
+# define RESOURCES   "Error: Not enough resources!\n"
+# define ENOMEM_ERR  "Error: Not enough resouces to initialize the mutex!\n"
+# define EINVAL_ERR  "Error: Invalid value was passed for the mutex!\n"
 
 #endif

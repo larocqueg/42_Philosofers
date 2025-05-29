@@ -12,6 +12,20 @@
 
 #include "../includes/philo.h"
 
+int	ft_init_mutex(t_mtx *mtx)
+{
+	int	status;
+
+	status = pthread_mutex_init(mtx, NULL);
+	if (status == ENOMEM)
+		printf("%s%s%s", R, ENOMEM_ERR, RT);
+	else if (status == EINVAL)
+		printf("%s%s%s", R, EINVAL_ERR, RT);
+	if (status == 0)
+		return (1);
+	return (0);
+}
+
 void	init_table(t_table **table, char **av, int ac)
 {
 	int	i;
@@ -28,9 +42,13 @@ void	init_table(t_table **table, char **av, int ac)
 		(*table)->meals = ft_atol(av[i]);
 	else
 		(*table)->meals = -1;
-	if (!check_table(*table))
+	(*table)->start_sim = 0;
+	(*table)->philos = NULL;
+	(*table)->end_sim = 0;
+	(*table)->philo_started = 0;
+	if (!check_table(*table) || !ft_init_mutex(&(*table)->write_mtx))
 	{
 		free(*table);
-		ft_exit(1, INVALID);
+		exit (1);
 	}
 }
