@@ -100,6 +100,7 @@ void	ft_exit(int value, char *str);
 
 //free.c
 void	free_before_philos(t_table *table, char *str);
+void	free_in_philos(t_table *table, char *str);
 
 # define ARG_ERR      "Error: Usage: ./philo n1 n2 n3 n4 n5(optional)\n"
 # define INVALID      "Error: Only positive integers are allowed!\n"
@@ -107,6 +108,7 @@ void	free_before_philos(t_table *table, char *str);
 # define ENOMEM_ERR   "Error: Not enough resouces to initialize the mutex!\n"
 # define EINVAL_ERR   "Error: Invalid value was passed for the mutex!\n"
 # define MUTEX_ERR    "Error: Mutex init failed with error: "
-# define FORK_MTX_ERR "Error: Something went wrong while creating a mutex!\n"
+# define FORK_MTX_ERR "Error: Something went wrong while creating fork mutex!\n"
+# define PHILO_MTX "Error: Something went wrong while creating philo mutex!\n"
 
 #endif

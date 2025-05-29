@@ -21,3 +21,14 @@ void	free_before_philos(t_table *table, char *str)
 		ft_exit(1, str);
 	exit(1);
 }
+
+void	free_in_philos(t_table *table, char *str)
+{
+	pthread_mutex_destroy(&table->table_mtx);
+	pthread_mutex_destroy(&table->write_mtx);
+	free(table->philos);
+	free(table);
+	if (str && *str)
+		ft_exit(1, str);
+	exit(1);
+}
