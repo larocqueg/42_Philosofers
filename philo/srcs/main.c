@@ -19,13 +19,10 @@ int	main(int ac, char **av)
 	if (ac != 5 && ac != 6)
 		ft_exit(1, ARG_ERR);
 	parsing(av, ac);
-	//table = init_table(av, ac);
-	//if (!table)
-	//{
-	//	ft_free_table(table);
-	//	ft_exit(1, TABLE_ERR);
-	//}
-	//meeting(table);
-	//free_table(table);
+	table = init_table(av, ac);
+	if (!table)
+		ft_exit(1, TABLE_ERR);
+	meeting(table);
+	free_table(table);
 	return (0);
 }
