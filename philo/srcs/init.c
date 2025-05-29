@@ -18,11 +18,18 @@ int	ft_init_mutex(t_mtx *mtx)
 
 	status = pthread_mutex_init(mtx, NULL);
 	if (status == ENOMEM)
+	{
 		printf("%s%s%s", R, ENOMEM_ERR, RT);
+		return (0);
+	}
 	else if (status == EINVAL)
+	{
 		printf("%s%s%s", R, EINVAL_ERR, RT);
+		return (0);
+	}
 	if (status == 0)
 		return (1);
+	printf("%s%s%d%s", R, MUTEX_ERR, status, RT);
 	return (0);
 }
 

@@ -101,5 +101,6 @@ void	ft_exit(int value, char *str);
 # define RESOURCES   "Error: Not enough resources!\n"
 # define ENOMEM_ERR  "Error: Not enough resouces to initialize the mutex!\n"
 # define EINVAL_ERR  "Error: Invalid value was passed for the mutex!\n"
+# define MUTEX_ERR   "Error: Mutex init failed with error: "
 
 #endif
