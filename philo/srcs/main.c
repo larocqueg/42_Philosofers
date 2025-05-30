@@ -24,18 +24,18 @@ int	init_philos(t_table *table)
 		return (0);
 	while (i < table -> philo_count)
 	{
-		if (!ft_mutex_init(&table->philos[i].philo_mutex))
+		if (!ft_mutex_init(&table->philos[i].philo_mtx))
 		{
 			while (j < i)
-				pthread_mutex_destroy(&table->philos[j++].philo_mutex);
+				pthread_mutex_destroy(&table->philos[j++].philo_mtx);
 			free(table -> philos);
 			return (0);
 		}
 		table->philos[i].index = i;
 		table->philos[i].table = table;
-		table->philos[i].last_eaten = -1;
+		table->philos[i].last_meal = -1;
 		table->philos[i].full = 0;
-		table->philos[i].eaten = 0;
+		table->philos[i].meals_counter = 0;
 		assign_forks(table, &table->philos[i++], table->forks);
 	}
 	return (1);
@@ -50,7 +50,7 @@ void	create_threads(t_table *table)
 	philos = table->philos;
 	while (i < table->philo_count)
 	{
-		if (!ft_thread_init(&philos[i].philo_thread, &philos[i]))
+		if (!ft_init_thread(&philos[i].philo_thread, &philos[i]))
 			printf("%serror in creating philo thread %d\n%s", R, i + 1, RT);
 		i++;
 	}
@@ -63,15 +63,15 @@ void	start_simulation(t_table *table)
 	i = 0;
 	table->start_time = get_time();
 	start_monitor(table);
-	ft_set_int(&table->table_mtx, &table->start_simulation, 1);
+	set_arg(&table->table_mtx, &table->start_simulation, 1);
 	while (i < table->philo_count)
 	{
 		pthread_join(table->philos[i].philo_thread, NULL);
 		i++;
 	}
-	if (!ft_get_int(&table->table_mtx, &table->end_simulation))
+	if (!get_arg(&table->table_mtx, &table->end_simulation))
 		printf("%sAll philosophers are full!\n%s", Y, RT);
-	ft_set_int(&table->table_mtx, &table->end_simulation, 1);
+	set_arg(&table->table_mtx, &table->end_simulation, 1);
 	pthread_join(table->monitor, NULL);
 }
 
@@ -81,7 +81,7 @@ int	main(int ac, char **av)
 
 	if (ac != 5 && ac != 6)
 		return (0);
-	if (!table_input_init(ac, av, &table))
+	if (!parsing(ac, av, &table))
 		return (0);
 	if (!init_forks(&table))
 	{
@@ -95,7 +95,7 @@ int	main(int ac, char **av)
 		return (0);
 	}
 	create_threads(&table);
-	while (ft_get_int(&table.table_mtx, &table.philo_started)
+	while (get_arg(&table.table_mtx, &table.philo_started)
 		!= table.philo_count)
 		usleep(500);
 	start_simulation(&table);

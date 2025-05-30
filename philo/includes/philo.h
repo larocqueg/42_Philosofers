@@ -48,13 +48,13 @@ typedef struct s_philo
 {
 	pthread_t		philo_thread;
 	int				index;
-	long long		last_eaten;
-	int				eaten;
+	long long		last_meal;
+	int				meals_counter;
 	int				full;
 	t_fork			*first_fork;
 	t_fork			*second_fork;
 	t_table			*table;
-	t_mtx			philo_mutex;
+	t_mtx			philo_mtx;
 }	t_philo;
 
 typedef struct s_table
@@ -76,23 +76,22 @@ typedef struct s_table
 }	t_table;
 
 int			valid_input(int ac, char **av, t_table *table);
-int			table_input_init(int ac, char **av, t_table *table);
+int			parsing(int ac, char **av, t_table *table);
 int			get_input(char **av, t_table *table);
 int			ft_is_numeric(char *num_str);
 int			ft_mutex_init(t_mtx *mutex);
 int			init_forks(t_table *table);
 int			start_monitor(t_table *table);
-int			ft_thread_init(pthread_t *thread, t_philo *arg);
+int			ft_init_thread(pthread_t *thread, t_philo *arg);
 int			sleeping(t_philo *philo);
 int			think(t_philo *philo);
 int			eating(t_philo *philo);
-int			ft_get_int(t_mtx *mutex, int *variable);
+int			get_arg(t_mtx *mutex, int *variable);
 void		assign_forks(t_table *table, t_philo *philo, t_fork *forks);
 void		write_state(t_philo *philo, t_state state);
 void		ft_usleep(int time, t_philo *philo);
 void		*routine(void *data);
-void		ft_set_int(t_mtx *mutex, int *variable, int newvalue);
-void		ft_set_ll(t_mtx *mutex, long long *variable, long long newvalue);
+void		set_arg(t_mtx *mutex, int *variable, int newvalue);
 void		free_table_mutex(t_table *table);
 void		free_forks(t_table *table);
 void		free_all(t_table *table);
@@ -101,6 +100,5 @@ void		get_second_fork(t_philo *philo);
 void		release_forks(t_philo *philo);
 long long	get_time(void);
 long long	ft_atoll(char *str);
-long long	ft_get_ll(t_mtx *mutex, long long *variable);
 
 #endif

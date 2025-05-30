@@ -15,16 +15,16 @@
 void	kill_philo(t_table *table, int i)
 {
 	pthread_mutex_lock(&table->write_mtx);
-	ft_set_int(&table->table_mtx, &table->end_simulation, 1);
+	set_arg(&table->table_mtx, &table->end_simulation, 1);
 	printf("%lld ", get_time() - table->start_time);
 	printf("%s%d died\n%s", R, i + 1, RT);
 	pthread_mutex_unlock(&table->write_mtx);
-	pthread_mutex_unlock(&table->philos[i].philo_mutex);
+	pthread_mutex_unlock(&table->philos[i].philo_mtx);
 }
 
 int	philo_timeout(t_table *table, int i)
 {
-	return (get_time() - table->philos[i].last_eaten >= table->time_to_die);
+	return (get_time() - table->philos[i].last_meal >= table->time_to_die);
 }
 
 void	*monitor(void *arg)
@@ -33,22 +33,22 @@ void	*monitor(void *arg)
 	t_table	*table;
 
 	table = arg;
-	while (!ft_get_int(&table->table_mtx, &table->start_simulation))
+	while (!get_arg(&table->table_mtx, &table->start_simulation))
 		usleep(500);
-	while (!ft_get_int(&table->table_mtx, &table->end_simulation))
+	while (!get_arg(&table->table_mtx, &table->end_simulation))
 	{
 		i = 0;
 		while (i < table->philo_count)
 		{
-			pthread_mutex_lock(&table->philos[i].philo_mutex);
-			if (table->philos[i].last_eaten == -1 || table->philos[i].full)
+			pthread_mutex_lock(&table->philos[i].philo_mtx);
+			if (table->philos[i].last_meal == -1 || table->philos[i].full)
 				;
 			else if (philo_timeout(table, i))
 			{
 				kill_philo(table, i);
 				return (NULL);
 			}
-			pthread_mutex_unlock(&table->philos[i].philo_mutex);
+			pthread_mutex_unlock(&table->philos[i].philo_mtx);
 			i++;
 		}
 		usleep(10);

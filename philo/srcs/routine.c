@@ -33,14 +33,14 @@ void	*routine(void *data)
 	pthread_mutex_lock(&table->table_mtx);
 	table->philo_started++;
 	pthread_mutex_unlock(&table->table_mtx);
-	while (!(ft_get_int(&table->table_mtx, &table->start_simulation)))
+	while (!(get_arg(&table->table_mtx, &table->start_simulation)))
 		usleep(100);
-	pthread_mutex_lock(&philo->philo_mutex);
-	philo->last_eaten = get_time();
-	pthread_mutex_unlock(&philo->philo_mutex);
+	pthread_mutex_lock(&philo->philo_mtx);
+	philo->last_meal = get_time();
+	pthread_mutex_unlock(&philo->philo_mtx);
 	if (lone_routine(table, philo))
 		return (NULL);
-	while (!(ft_get_int(&table->table_mtx, &table->end_simulation)))
+	while (!(get_arg(&table->table_mtx, &table->end_simulation)))
 	{
 		if (!eating(philo))
 			return (NULL);

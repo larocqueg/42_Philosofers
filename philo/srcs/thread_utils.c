@@ -27,7 +27,7 @@ int	ft_mutex_init(t_mtx *mutex)
 		return (0);
 }
 
-int	ft_thread_init(pthread_t *thread, t_philo *arg)
+int	ft_init_thread(pthread_t *thread, t_philo *arg)
 {
 	int	return_value;
 
@@ -48,7 +48,7 @@ void	ft_usleep(int time, t_philo *philo)
 
 	i = 0;
 	start_time = get_time();
-	while (!ft_get_int(&philo->table->table_mtx, &philo->table->end_simulation))
+	while (!get_arg(&philo->table->table_mtx, &philo->table->end_simulation))
 	{
 		usleep(500);
 		if (get_time() - start_time >= (long long)time)

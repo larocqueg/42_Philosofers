@@ -39,7 +39,7 @@ void	free_all(t_table *table)
 	free_table_mutex(table);
 	while (i < table->philo_count)
 	{
-		pthread_mutex_destroy(&table->philos[i].philo_mutex);
+		pthread_mutex_destroy(&table->philos[i].philo_mtx);
 		i++;
 	}
 	free_forks(table);

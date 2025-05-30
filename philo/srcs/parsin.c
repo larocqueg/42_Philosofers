@@ -82,7 +82,7 @@ int	valid_input(int ac, char **av, t_table *table)
 	return (1);
 }
 
-int	table_input_init(int ac, char **av, t_table *table)
+int	parsing(int ac, char **av, t_table *table)
 {
 	if (!valid_input(ac, av, table))
 		return (0);

@@ -39,7 +39,7 @@ void	print_thinking(t_philo *philo)
 void	write_state(t_philo *philo, t_state state)
 {
 	pthread_mutex_lock(&philo->table->write_mtx);
-	if (ft_get_int(&philo->table->table_mtx, &philo->table->end_simulation))
+	if (get_arg(&philo->table->table_mtx, &philo->table->end_simulation))
 	{
 		pthread_mutex_unlock(&philo->table->write_mtx);
 		return ;
