@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafaelfe <rafaelfe@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: gde-la-r <gde-la-r@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/11 20:06:52 by rafaelfe          #+#    #+#             */
-/*   Updated: 2025/05/05 19:07:08 by rafaelfe         ###   ########.fr       */
+/*   Created: 2025/05/30 13:44:59 by gde-la-r          #+#    #+#             */
+/*   Updated: 2025/05/30 13:45:03 by gde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	create_threads(t_table *table)
 	while (i < table->philo_count)
 	{
 		if (!ft_thread_init(&philos[i].philo_thread, &philos[i]))
-			printf("error in creating philo thread %d\n", i + 1);
+			printf("%serror in creating philo thread %d\n%s", R, i + 1, RT);
 		i++;
 	}
 }
@@ -70,7 +70,7 @@ void	start_simulation(t_table *table)
 		i++;
 	}
 	if (!ft_get_int(&table->table_mtx, &table->end_simulation))
-		printf("All philosophers have eaten, simulation ended!\n");
+		printf("%sAll philosophers are full!\n%s", Y, RT);
 	ft_set_int(&table->table_mtx, &table->end_simulation, 1);
 	pthread_join(table->monitor, NULL);
 }

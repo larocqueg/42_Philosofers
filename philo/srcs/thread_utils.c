@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pthread_helpers.c                                  :+:      :+:    :+:   */
+/*   thread_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafaelfe <rafaelfe@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: gde-la-r <gde-la-r@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/21 20:19:13 by rafaelfe          #+#    #+#             */
-/*   Updated: 2025/05/05 19:07:08 by rafaelfe         ###   ########.fr       */
+/*   Created: 2025/05/30 13:45:19 by gde-la-r          #+#    #+#             */
+/*   Updated: 2025/05/30 13:45:20 by gde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	ft_mutex_init(t_mtx *mutex)
 
 	return_value = pthread_mutex_init(mutex, NULL);
 	if (return_value == EINVAL)
-		printf("Invalid value was passed for the mutex attributes.\n");
+		printf("%sInvalid value was passed for the mutex!\n%s", R, RT);
 	else if (return_value == ENOMEM)
-		printf("Insufficient memory to initialize the mutex.\n" );
+		printf("%sInsufficient resources to initialize the mutex!\n%s", R, RT);
 	if (return_value == 0)
 		return (1);
 	else
@@ -35,7 +35,7 @@ int	ft_thread_init(pthread_t *thread, t_philo *arg)
 	if (return_value == EINVAL || return_value == EAGAIN
 		|| return_value == EPERM)
 	{
-		printf("Error while creating philo thread.\n");
+		printf("%sError while creating philo thread.\n%s", R, RT);
 		return (0);
 	}
 	return (1);

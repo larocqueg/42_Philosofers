@@ -19,18 +19,18 @@ SRCS_DIR = ./srcs
 INCLUDES = ./includes/
 
 SRCS= $(SRCS_DIR)/main.c \
-	  $(SRCS_DIR)/ft_atoll.c \
-	  $(SRCS_DIR)/pthread_helpers.c \
-	  $(SRCS_DIR)/get_time.c \
-	  $(SRCS_DIR)/state.c \
-	  $(SRCS_DIR)/routine.c \
 	  $(SRCS_DIR)/actions.c \
-	  $(SRCS_DIR)/monitor.c \
-	  $(SRCS_DIR)/getters_setters.c \
-	  $(SRCS_DIR)/init_forks.c \
-	  $(SRCS_DIR)/free_philo.c \
-	  $(SRCS_DIR)/input_handler.c \
 	  $(SRCS_DIR)/forks.c \
+	  $(SRCS_DIR)/free.c \
+	  $(SRCS_DIR)/get_time.c \
+	  $(SRCS_DIR)/logs.c \
+	  $(SRCS_DIR)/monitor.c \
+	  $(SRCS_DIR)/numbers.c \
+	  $(SRCS_DIR)/parsin.c \
+	  $(SRCS_DIR)/routine.c \
+	  $(SRCS_DIR)/thread_utils.c \
+	  $(SRCS_DIR)/utils.c
+
 
 
 

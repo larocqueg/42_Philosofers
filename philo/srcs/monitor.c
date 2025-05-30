@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafaelfe <rafaelfe@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: gde-la-r <gde-la-r@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/03 19:51:29 by rafaelfe          #+#    #+#             */
-/*   Updated: 2025/05/05 19:07:08 by rafaelfe         ###   ########.fr       */
+/*   Created: 2025/05/30 13:44:34 by gde-la-r          #+#    #+#             */
+/*   Updated: 2025/05/30 13:44:35 by gde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	kill_philo(t_table *table, int i)
 	pthread_mutex_lock(&table->write_mtx);
 	ft_set_int(&table->table_mtx, &table->end_simulation, 1);
 	printf("%lld ", get_time() - table->start_time);
-	printf("%d died\n", i + 1);
+	printf("%s%d died\n%s", R, i + 1, RT);
 	pthread_mutex_unlock(&table->write_mtx);
 	pthread_mutex_unlock(&table->philos[i].philo_mutex);
 }
@@ -64,7 +64,7 @@ int	start_monitor(t_table *table)
 	if (return_value == EINVAL || return_value == EAGAIN
 		|| return_value == EPERM)
 	{
-		printf("Error while creating thread monitor.\n");
+		printf("%sError while creating thread monitor!\n%s", R, RT);
 		return (0);
 	}
 	return (1);

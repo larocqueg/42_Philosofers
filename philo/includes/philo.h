@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafaelfe <rafaelfe@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: gde-la-r <gde-la-r@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/21 21:32:04 by rafaelfe          #+#    #+#             */
-/*   Updated: 2025/05/04 21:56:05 by rafaelfe         ###   ########.fr       */
+/*   Created: 2025/05/30 13:46:26 by gde-la-r          #+#    #+#             */
+/*   Updated: 2025/05/30 13:46:36 by gde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 
 struct					s_table;
 typedef struct s_table	t_table;
-
 typedef pthread_mutex_t	t_mtx;
 
 typedef enum e_state
@@ -76,43 +75,32 @@ typedef struct s_table
 	pthread_t		monitor;
 }	t_table;
 
-//input
 int			valid_input(int ac, char **av, t_table *table);
 int			table_input_init(int ac, char **av, t_table *table);
 int			get_input(char **av, t_table *table);
 int			ft_is_numeric(char *num_str);
-
-long long	ft_atoll(char *str);
 int			ft_mutex_init(t_mtx *mutex);
 int			init_forks(t_table *table);
-void		assign_forks(t_table *table, t_philo *philo, t_fork *forks);
-
-void		write_state(t_philo *philo, t_state state);
-
 int			start_monitor(t_table *table);
-long long	get_time(void);
-void		ft_usleep(int time, t_philo *philo);
-
-void		*routine(void *data);
+int			ft_thread_init(pthread_t *thread, t_philo *arg);
 int			sleeping(t_philo *philo);
 int			think(t_philo *philo);
 int			eating(t_philo *philo);
-
-//getters_setters
 int			ft_get_int(t_mtx *mutex, int *variable);
+void		assign_forks(t_table *table, t_philo *philo, t_fork *forks);
+void		write_state(t_philo *philo, t_state state);
+void		ft_usleep(int time, t_philo *philo);
+void		*routine(void *data);
 void		ft_set_int(t_mtx *mutex, int *variable, int newvalue);
 void		ft_set_ll(t_mtx *mutex, long long *variable, long long newvalue);
-long long	ft_get_ll(t_mtx *mutex, long long *variable);
-int			ft_thread_init(pthread_t *thread, t_philo *arg);
-
-//free
 void		free_table_mutex(t_table *table);
 void		free_forks(t_table *table);
 void		free_all(t_table *table);
-
-//forks.c
 void		get_first_fork(t_philo *philo);
 void		get_second_fork(t_philo *philo);
 void		release_forks(t_philo *philo);
+long long	get_time(void);
+long long	ft_atoll(char *str);
+long long	ft_get_ll(t_mtx *mutex, long long *variable);
 
 #endif

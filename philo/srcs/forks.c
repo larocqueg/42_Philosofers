@@ -5,12 +5,53 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-la-r <gde-la-r@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/30 13:15:22 by gde-la-r          #+#    #+#             */
-/*   Updated: 2025/05/30 13:15:40 by gde-la-r         ###   ########.fr       */
+/*   Created: 2025/05/30 13:44:43 by gde-la-r          #+#    #+#             */
+/*   Updated: 2025/05/30 13:44:44 by gde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+int	init_forks(t_table *table)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	table -> forks = (t_fork *)malloc(sizeof(t_fork) * table->philo_count);
+	if (!table -> forks)
+		return (0);
+	while (i < table -> philo_count)
+	{
+		if (!ft_mutex_init(&table->forks[i].fork))
+		{
+			while (j < i)
+			{
+				pthread_mutex_destroy(&table->forks[j++].fork);
+				printf("%sError initing fork mutexes!\n%s", R, RT);
+			}
+			return (0);
+		}
+		table->forks[i].fork_id = i;
+		i++;
+	}
+	return (1);
+}
+
+void	assign_forks(t_table *table, t_philo *philo, t_fork *forks)
+{
+	if ((philo->index + 1) % 2 == 0)
+	{
+		philo->first_fork = &forks[philo->index];
+		philo->second_fork = &forks[(philo->index + 1) % table->philo_count];
+	}
+	else
+	{
+		philo->first_fork = &forks[(philo->index + 1) % table->philo_count];
+		philo->second_fork = &forks[philo->index];
+	}
+}
 
 void	get_first_fork(t_philo *philo)
 {
