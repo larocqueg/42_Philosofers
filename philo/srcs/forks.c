@@ -19,10 +19,10 @@ int	init_forks(t_table *table)
 
 	i = 0;
 	j = 0;
-	table -> forks = (t_fork *)malloc(sizeof(t_fork) * table->philo_count);
+	table -> forks = (t_fork *)malloc(sizeof(t_fork) * table->members);
 	if (!table -> forks)
 		return (0);
-	while (i < table -> philo_count)
+	while (i < table -> members)
 	{
 		if (!ft_mutex_init(&table->forks[i].fork))
 		{
@@ -44,11 +44,11 @@ void	assign_forks(t_table *table, t_philo *philo, t_fork *forks)
 	if ((philo->index + 1) % 2 == 0)
 	{
 		philo->first_fork = &forks[philo->index];
-		philo->second_fork = &forks[(philo->index + 1) % table->philo_count];
+		philo->second_fork = &forks[(philo->index + 1) % table->members];
 	}
 	else
 	{
-		philo->first_fork = &forks[(philo->index + 1) % table->philo_count];
+		philo->first_fork = &forks[(philo->index + 1) % table->members];
 		philo->second_fork = &forks[philo->index];
 	}
 }
@@ -56,13 +56,13 @@ void	assign_forks(t_table *table, t_philo *philo, t_fork *forks)
 void	get_first_fork(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->first_fork->fork);
-	write_state(philo, GET_FORK);
+	logs(philo, GET_FORK);
 }
 
 void	get_second_fork(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->second_fork->fork);
-	write_state(philo, GET_FORK);
+	logs(philo, GET_FORK);
 }
 
 void	release_forks(t_philo *philo)

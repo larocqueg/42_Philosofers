@@ -48,7 +48,7 @@ void	ft_usleep(int time, t_philo *philo)
 
 	i = 0;
 	start_time = get_time();
-	while (!get_arg(&philo->table->table_mtx, &philo->table->end_simulation))
+	while (!get_arg(&philo->table->table_mtx, &philo->table->sim_end))
 	{
 		usleep(500);
 		if (get_time() - start_time >= (long long)time)

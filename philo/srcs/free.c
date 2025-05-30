@@ -23,7 +23,7 @@ void	free_forks(t_table *table)
 	int	i;
 
 	i = 0;
-	while (i < table->philo_count)
+	while (i < table->members)
 	{
 		pthread_mutex_destroy(&table->forks[i].fork);
 		i++;
@@ -37,7 +37,7 @@ void	free_all(t_table *table)
 
 	i = 0;
 	free_table_mutex(table);
-	while (i < table->philo_count)
+	while (i < table->members)
 	{
 		pthread_mutex_destroy(&table->philos[i].philo_mtx);
 		i++;

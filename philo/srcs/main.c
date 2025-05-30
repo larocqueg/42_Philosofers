@@ -19,10 +19,10 @@ int	init_philos(t_table *table)
 
 	j = 0;
 	i = 0;
-	table -> philos = (t_philo *)malloc(sizeof(t_philo) * table->philo_count);
+	table -> philos = (t_philo *)malloc(sizeof(t_philo) * table->members);
 	if (!table -> philos)
 		return (0);
-	while (i < table -> philo_count)
+	while (i < table -> members)
 	{
 		if (!ft_mutex_init(&table->philos[i].philo_mtx))
 		{
@@ -48,7 +48,7 @@ void	create_threads(t_table *table)
 
 	i = 0;
 	philos = table->philos;
-	while (i < table->philo_count)
+	while (i < table->members)
 	{
 		if (!ft_init_thread(&philos[i].philo_thread, &philos[i]))
 			printf("%serror in creating philo thread %d\n%s", R, i + 1, RT);
@@ -56,22 +56,22 @@ void	create_threads(t_table *table)
 	}
 }
 
-void	start_simulation(t_table *table)
+void	sim_start(t_table *table)
 {
 	int	i;
 
 	i = 0;
 	table->start_time = get_time();
 	start_monitor(table);
-	set_arg(&table->table_mtx, &table->start_simulation, 1);
-	while (i < table->philo_count)
+	set_arg(&table->table_mtx, &table->sim_start, 1);
+	while (i < table->members)
 	{
 		pthread_join(table->philos[i].philo_thread, NULL);
 		i++;
 	}
-	if (!get_arg(&table->table_mtx, &table->end_simulation))
+	if (!get_arg(&table->table_mtx, &table->sim_end))
 		printf("%sAll philosophers are full!\n%s", Y, RT);
-	set_arg(&table->table_mtx, &table->end_simulation, 1);
+	set_arg(&table->table_mtx, &table->sim_end, 1);
 	pthread_join(table->monitor, NULL);
 }
 
@@ -96,9 +96,9 @@ int	main(int ac, char **av)
 	}
 	create_threads(&table);
 	while (get_arg(&table.table_mtx, &table.philo_started)
-		!= table.philo_count)
+		!= table.members)
 		usleep(500);
-	start_simulation(&table);
+	sim_start(&table);
 	free_all(&table);
 	return (0);
 }

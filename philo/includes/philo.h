@@ -59,10 +59,10 @@ typedef struct s_philo
 
 typedef struct s_table
 {
-	int				philo_count;
+	int				members;
 	int				philo_started;
-	int				start_simulation;
-	int				end_simulation;
+	int				sim_start;
+	int				sim_end;
 	long long		start_time;
 	int				time_to_die;
 	int				time_to_eat;
@@ -88,7 +88,7 @@ int			think(t_philo *philo);
 int			eating(t_philo *philo);
 int			get_arg(t_mtx *mutex, int *variable);
 void		assign_forks(t_table *table, t_philo *philo, t_fork *forks);
-void		write_state(t_philo *philo, t_state state);
+void		logs(t_philo *philo, t_state state);
 void		ft_usleep(int time, t_philo *philo);
 void		*routine(void *data);
 void		set_arg(t_mtx *mutex, int *variable, int newvalue);

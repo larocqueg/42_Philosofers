@@ -32,16 +32,16 @@ int	ft_is_numeric(char *num_str)
 
 int	get_input(char **av, t_table *table)
 {
-	long long	philo_count;
+	long long	members;
 	long long	time_to_die;
 	long long	time_to_eat;
 	long long	time_to_sleep;
 
-	philo_count = ft_atoll(av[1]);
+	members = ft_atoll(av[1]);
 	time_to_die = ft_atoll(av[2]);
 	time_to_eat = ft_atoll(av[3]);
 	time_to_sleep = ft_atoll(av[4]);
-	if (philo_count > INT_MAX || philo_count < 1)
+	if (members > INT_MAX || members < 1)
 		return (0);
 	if (time_to_die > INT_MAX || time_to_die < 0)
 		return (0);
@@ -49,7 +49,7 @@ int	get_input(char **av, t_table *table)
 		return (0);
 	if (time_to_sleep > INT_MAX || time_to_sleep < 0)
 		return (0);
-	table->philo_count = philo_count;
+	table->members = members;
 	table->time_to_die = time_to_die;
 	table->time_to_eat = time_to_eat;
 	table->time_to_sleep = time_to_sleep;
@@ -86,9 +86,9 @@ int	parsing(int ac, char **av, t_table *table)
 {
 	if (!valid_input(ac, av, table))
 		return (0);
-	table -> start_simulation = 0;
+	table -> sim_start = 0;
 	table -> philos = NULL;
-	table -> end_simulation = 0;
+	table -> sim_end = 0;
 	table -> philo_started = 0;
 	if (!ft_mutex_init(&table->table_mtx))
 		return (0);

@@ -36,10 +36,10 @@ void	print_thinking(t_philo *philo)
 	printf("%s%d is thinking\n%s", G, philo->index + 1, RT);
 }
 
-void	write_state(t_philo *philo, t_state state)
+void	logs(t_philo *philo, t_state state)
 {
 	pthread_mutex_lock(&philo->table->write_mtx);
-	if (get_arg(&philo->table->table_mtx, &philo->table->end_simulation))
+	if (get_arg(&philo->table->table_mtx, &philo->table->sim_end))
 	{
 		pthread_mutex_unlock(&philo->table->write_mtx);
 		return ;

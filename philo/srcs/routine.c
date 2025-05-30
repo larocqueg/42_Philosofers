@@ -14,9 +14,9 @@
 
 int	lone_routine(t_table *table, t_philo *philo)
 {
-	if (table->philo_count == 1)
+	if (table->members == 1)
 	{
-		write_state(philo, GET_FORK);
+		logs(philo, GET_FORK);
 		ft_usleep(table->time_to_die, philo);
 		return (1);
 	}
@@ -33,14 +33,14 @@ void	*routine(void *data)
 	pthread_mutex_lock(&table->table_mtx);
 	table->philo_started++;
 	pthread_mutex_unlock(&table->table_mtx);
-	while (!(get_arg(&table->table_mtx, &table->start_simulation)))
+	while (!(get_arg(&table->table_mtx, &table->sim_start)))
 		usleep(100);
 	pthread_mutex_lock(&philo->philo_mtx);
 	philo->last_meal = get_time();
 	pthread_mutex_unlock(&philo->philo_mtx);
 	if (lone_routine(table, philo))
 		return (NULL);
-	while (!(get_arg(&table->table_mtx, &table->end_simulation)))
+	while (!(get_arg(&table->table_mtx, &table->sim_end)))
 	{
 		if (!eating(philo))
 			return (NULL);
