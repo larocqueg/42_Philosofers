@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simulation.c                                       :+:      :+:    :+:   */
+/*   forks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-la-r <gde-la-r@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/29 17:53:21 by gde-la-r          #+#    #+#             */
-/*   Updated: 2025/05/29 17:55:40 by gde-la-r         ###   ########.fr       */
+/*   Created: 2025/05/30 13:15:22 by gde-la-r          #+#    #+#             */
+/*   Updated: 2025/05/30 13:15:40 by gde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int	start_simulation(t_mtx *mtx, int *i)
+void	get_first_fork(t_philo *philo)
 {
-	int	status;
-
-	pthread_mutex_lock(mtx);
-	status = *i;
-	pthread_mutex_unlock(mtx);
-	return (status);
+	pthread_mutex_lock(&philo->first_fork->fork);
+	write_state(philo, GET_FORK);
 }
 
-void	*routine(void *arg)
+void	get_second_fork(t_philo *philo)
 {
+	pthread_mutex_lock(&philo->second_fork->fork);
+	write_state(philo, GET_FORK);
+}
 
+void	release_forks(t_philo *philo)
+{
+	pthread_mutex_unlock(&philo->first_fork->fork);
+	pthread_mutex_unlock(&philo->second_fork->fork);
 }

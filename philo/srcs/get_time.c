@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   get_time.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-la-r <gde-la-r@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rafaelfe <rafaelfe@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/29 00:20:35 by gde-la-r          #+#    #+#             */
-/*   Updated: 2025/05/29 00:21:34 by gde-la-r         ###   ########.fr       */
+/*   Created: 2025/05/03 18:16:49 by rafaelfe          #+#    #+#             */
+/*   Updated: 2025/05/05 19:07:08 by rafaelfe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	ft_exit(int value, char *str)
+long long	get_time(void)
 {
-	if (str && *str)
-		printf("%s%s%s", R, str, RT);
-	exit(value);
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return ((long long)(tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }

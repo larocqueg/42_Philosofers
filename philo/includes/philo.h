@@ -3,25 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-la-r <gde-la-r@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rafaelfe <rafaelfe@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/29 00:03:17 by gde-la-r          #+#    #+#             */
-/*   Updated: 2025/05/29 00:04:41 by gde-la-r         ###   ########.fr       */
+/*   Created: 2025/04/21 21:32:04 by rafaelfe          #+#    #+#             */
+/*   Updated: 2025/05/04 21:56:05 by rafaelfe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
+# include <unistd.h>
+# include <stdlib.h>
 # include <stdio.h>
 # include <pthread.h>
 # include <sys/time.h>
-# include <sys/types.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdbool.h>
-# include <limits.h>
 # include <errno.h>
+# include <limits.h>
 
 # define RT  "\033[0m"
 # define R    "\033[1;31m"
@@ -50,27 +48,27 @@ typedef struct s_fork
 typedef struct s_philo
 {
 	pthread_t		philo_thread;
-	long			id;
-	long			last_meal;
-	int				meals_count;
-	bool			full;
+	int				index;
+	long long		last_eaten;
+	int				eaten;
+	int				full;
 	t_fork			*first_fork;
 	t_fork			*second_fork;
 	t_table			*table;
-	t_mtx			philo_mtx;
+	t_mtx			philo_mutex;
 }	t_philo;
 
 typedef struct s_table
 {
+	int				philo_count;
 	int				philo_started;
-	bool			start_sim;
-	bool			end_sim;
-	long			philo_count;
-	long			start_time;
-	long			time_to_die;
-	long			time_to_eat;
-	long			time_to_sleep;
-	long			meals;
+	int				start_simulation;
+	int				end_simulation;
+	long long		start_time;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				must_eat;
 	t_fork			*forks;
 	t_philo			*philos;
 	t_mtx			write_mtx;
@@ -78,45 +76,43 @@ typedef struct s_table
 	pthread_t		monitor;
 }	t_table;
 
-//parsing.c
-void	parsing(char **av, int ac);
+//input
+int			valid_input(int ac, char **av, t_table *table);
+int			table_input_init(int ac, char **av, t_table *table);
+int			get_input(char **av, t_table *table);
+int			ft_is_numeric(char *num_str);
 
-//chars.c
-int		is_space(char c);
-int		is_digit(char c);
-int		is_zero(char c);
+long long	ft_atoll(char *str);
+int			ft_mutex_init(t_mtx *mutex);
+int			init_forks(t_table *table);
+void		assign_forks(t_table *table, t_philo *philo, t_fork *forks);
 
-//init.c
-void	init_table(t_table **table, char **av, int ac);
-int		ft_init_mutex(t_mtx *mtx);
+void		write_state(t_philo *philo, t_state state);
 
-//utils.c
-long	ft_atol(char *str);
-bool	check_table(t_table *table);
-void	check_mutex(t_table *table);
-int		init_threads(pthread_t *thread, t_philo *philo);
-void	get_forks(t_table *table, t_philo *philo, t_fork *fork);
+int			start_monitor(t_table *table);
+long long	get_time(void);
+void		ft_usleep(int time, t_philo *philo);
 
-//simulation.c
-int		simulation_started(t_mtx *mtx, int *i);
-void	*routine(void *arg);
+void		*routine(void *data);
+int			sleeping(t_philo *philo);
+int			think(t_philo *philo);
+int			eating(t_philo *philo);
 
-//exit.c
-void	ft_exit(int value, char *str);
+//getters_setters
+int			ft_get_int(t_mtx *mutex, int *variable);
+void		ft_set_int(t_mtx *mutex, int *variable, int newvalue);
+void		ft_set_ll(t_mtx *mutex, long long *variable, long long newvalue);
+long long	ft_get_ll(t_mtx *mutex, long long *variable);
+int			ft_thread_init(pthread_t *thread, t_philo *arg);
 
-//free.c
-void	free_before_philos(t_table *table, char *str);
-void	free_in_philos(t_table *table, char *str);
+//free
+void		free_table_mutex(t_table *table);
+void		free_forks(t_table *table);
+void		free_all(t_table *table);
 
-# define ARG_ERR      "Error: Usage: ./philo n1 n2 n3 n4 n5(optional)\n"
-# define INVALID      "Error: Only positive integers are allowed!\n"
-# define RESOURCES    "Error: Not enough resources!\n"
-# define ENOMEM_ERR   "Error: Not enough resouces to initialize the mtx!\n"
-# define EINVAL_ERR   "Error: Invalid value was passed for the mtx!\n"
-# define MUTEX_ERR    "Error: Mutex init failed with error: "
-# define FORK_MTX_ERR "Error: Something went wrong while creating fork mtx!\n"
-# define PHILO_MTX    "Error: Something went wrong while creating philo mtx!\n"
-# define EPERM_ERR    "Error: Insufficient permissions to create the thread!\n"
-# define THREAD_ERR   "Error: Not enough resources to create thread: "
+//forks.c
+void		get_first_fork(t_philo *philo);
+void		get_second_fork(t_philo *philo);
+void		release_forks(t_philo *philo);
 
 #endif

@@ -18,16 +18,23 @@ FLAGS = -Wall -Wextra -Werror -pthread -g
 SRCS_DIR = ./srcs
 INCLUDES = ./includes/
 
-SRC= $(SRCS_DIR)/main.c \
-	 $(SRCS_DIR)/chars.c \
-	 $(SRCS_DIR)/parsing.c \
-	 $(SRCS_DIR)/exit.c \
-	 $(SRCS_DIR)/init.c \
-	 $(SRCS_DIR)/utils.c \
-	 $(SRCS_DIR)/free.c \
-	 $(SRCS_DIR)/simulation.c \
+SRCS= $(SRCS_DIR)/main.c \
+	  $(SRCS_DIR)/ft_atoll.c \
+	  $(SRCS_DIR)/pthread_helpers.c \
+	  $(SRCS_DIR)/get_time.c \
+	  $(SRCS_DIR)/state.c \
+	  $(SRCS_DIR)/routine.c \
+	  $(SRCS_DIR)/actions.c \
+	  $(SRCS_DIR)/monitor.c \
+	  $(SRCS_DIR)/getters_setters.c \
+	  $(SRCS_DIR)/init_forks.c \
+	  $(SRCS_DIR)/free_philo.c \
+	  $(SRCS_DIR)/input_handler.c \
+	  $(SRCS_DIR)/forks.c \
 
-OBJS = $(SRC:.c=.o)
+
+
+OBJS = $(SRCS:.c=.o)
 
 #Colors
 RED    = \033[38;5;196m
